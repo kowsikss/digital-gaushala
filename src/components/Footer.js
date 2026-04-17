@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Footer() {
   return (
     <footer
@@ -8,7 +10,7 @@ function Footer() {
         marginTop: "50px",
       }}
     >
-      {/* Top Section */}
+      {/* TOP SECTION */}
       <div
         style={{
           display: "flex",
@@ -17,7 +19,7 @@ function Footer() {
           gap: "40px",
         }}
       >
-        {/* Left */}
+        {/* LEFT */}
         <div style={{ maxWidth: "300px" }}>
           <h2>
             <span
@@ -39,33 +41,54 @@ function Footer() {
           </p>
         </div>
 
-        {/* Contact */}
+        {/* CONTACT */}
         <div>
           <h3 style={{ color: "#f97316" }}>Contact</h3>
           <p>TN Animal Husbandry Helpline: 1962</p>
-          <p>hello@gaushala-tn.gov.in</p>
-          <p>Chepauk, Chennai 600005</p>
+          <p>
+            <a href="mailto:hello@gaushala-tn.gov.in" style={linkStyle}>
+              hello@gaushala-tn.gov.in
+            </a>
+          </p>
+          <p>AnimalTradeX, Kotturpuram, Chennai - 600085</p>
         </div>
 
-        {/* Links */}
+        {/* QUICK LINKS */}
         <div>
           <h3 style={{ color: "#f97316" }}>Quick Links</h3>
-          <p>About</p>
-          <p>Stakeholders</p>
-          <p>Resources</p>
-          <p>Register a Gaushala</p>
+
+          <Link to="/" style={linkStyle}>Home</Link>
+
+          <a href="#about" style={linkStyle}>About</a>
+
+          <a href="#stakeholders" style={linkStyle}>Stakeholders</a>
+
+          <Link to="/resources" style={linkStyle}>Resources</Link>
+
+          <Link to="/districts" style={linkStyle}>Districts</Link>
+
+          <Link to="/enquiry" style={linkStyle}>Register a Gaushala</Link>
         </div>
       </div>
 
-      {/* Divider */}
+      {/* DIVIDER */}
       <hr style={{ margin: "40px 0", opacity: 0.3 }} />
 
-      {/* Bottom */}
+      {/* BOTTOM */}
       <p style={{ textAlign: "center", color: "#d1d5db" }}>
         © 2026 Gaushala TN Digital Initiative. Inspired by Mattu Pongal — गौ माता की जय.
       </p>
     </footer>
   );
 }
+
+/* 🔥 COMMON LINK STYLE */
+const linkStyle = {
+  display: "block",
+  color: "#d1d5db",
+  textDecoration: "none",
+  marginTop: "8px",
+  cursor: "pointer",
+};
 
 export default Footer;
