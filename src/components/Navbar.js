@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react";
-<header className="navbar"></header>
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -13,8 +12,7 @@ function Navbar() {
     setMenuOpen(false);
 
     if (location.pathname !== "/") {
-      navigate("/"); // go to home first
-
+      navigate("/");
       setTimeout(() => {
         const section = document.getElementById("about");
         if (section) section.scrollIntoView({ behavior: "smooth" });
@@ -25,14 +23,32 @@ function Navbar() {
     }
   };
 
+  // 🔥 Scroll to Stakeholders Section
+  const handleStakeholdersClick = () => {
+    setMenuOpen(false);
+
+    if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(() => {
+        const section = document.getElementById("stakeholders");
+        if (section) section.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    } else {
+      const section = document.getElementById("stakeholders");
+      if (section) section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <header className="navbar">
       <div className="navbar-inner">
+        
+        {/* LOGO */}
         <Link to="/" className="logo" onClick={() => setMenuOpen(false)}>
           🐄 Digital Gaushala TN
         </Link>
 
-        {/* Mobile Toggle */}
+        {/* MOBILE TOGGLE */}
         <button
           className="menu-toggle"
           onClick={() => setMenuOpen((prev) => !prev)}
@@ -42,43 +58,22 @@ function Navbar() {
           {menuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
 
+        {/* NAV LINKS */}
         <nav className={`nav-links ${menuOpen ? "open" : ""}`}>
           
           <Link to="/" onClick={() => setMenuOpen(false)}>
             Home
           </Link>
 
-          {/* ✅ UPDATED ABOUT (SCROLL) */}
-          <button
-            onClick={handleAboutClick}
-            style={{
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              font: "inherit",
-            }}
-          >
+          {/* ABOUT (SCROLL) */}
+          <button onClick={handleAboutClick} style={navBtn}>
             About
           </button>
 
-         <button
-  onClick={() => {
-    setMenuOpen(false);
-
-    const section = document.getElementById("stakeholders");
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-    }
-  }}
-  style={{
-    background: "none",
-    border: "none",
-    cursor: "pointer",
-    font: "inherit",
-  }}
->
-  Stakeholders
-</button>
+          {/* STAKEHOLDERS (SCROLL) */}
+          <button onClick={handleStakeholdersClick} style={navBtn}>
+            Stakeholders
+          </button>
 
           <Link to="/resources" onClick={() => setMenuOpen(false)}>
             Resources
@@ -88,22 +83,25 @@ function Navbar() {
             Districts
           </Link>
 
-          {/* ✅ Adopt Button */}
+          {/* 🔥 DASHBOARD (EXTERNAL LINK) */}
+          <a
+            href="https://mymoo-admin.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setMenuOpen(false)}
+            style={navLink}
+          >
+            Dashboard
+          </a>
+
+          {/* ADOPT BUTTON */}
           <Link to="/adopt" onClick={() => setMenuOpen(false)}>
-            <button
-              style={{
-                padding: "10px 20px",
-                borderRadius: "20px",
-                border: "1px solid #ccc",
-                background: "white",
-                cursor: "pointer",
-              }}
-            >
+            <button style={adoptBtn}>
               ❤️ Adopt a Cow
             </button>
           </Link>
 
-          {/* CTA */}
+          {/* REGISTER CTA */}
           <Link
             to="/enquiry"
             onClick={() => setMenuOpen(false)}
@@ -116,5 +114,29 @@ function Navbar() {
     </header>
   );
 }
+
+/* 🔥 STYLES */
+const navBtn = {
+  background: "none",
+  border: "none",
+  cursor: "pointer",
+  font: "inherit",
+  color: "white",
+};
+
+const navLink = {
+  color: "white",
+  textDecoration: "none",
+  fontWeight: "500",
+};
+
+const adoptBtn = {
+  padding: "10px 20px",
+  borderRadius: "20px",
+  border: "none",
+  background: "white",
+  color: "#14532d",
+  cursor: "pointer",
+};
 
 export default Navbar;
